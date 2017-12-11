@@ -14,7 +14,7 @@ Sure thing! Follow along and you will swiftly be the owner of the venerable Caps
 2. create an account
 3. switch to the `Rinkeby` network
 4. send us (@ndkv) your account address and we will swiftly transfer 10 CECs.
-5. Go to the [Capsule Coin Ðapp](https://github.ndkv.io/capsule-coin) to verify your possession of sublime Capsule Coins!
+5. Go to the [Capsule Coin Ðapp](https://ndkv.github.io/capsule-coin) to verify your possession of sublime Capsule Coins!
 
 ## Is this for real, tho? 🤔
 
