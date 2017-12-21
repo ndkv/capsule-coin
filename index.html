@@ -1,14 +1,86 @@
 <html>
   <head>
-    <script type="text/javascript" src="js/dist/truffle-contract.min.js"></script>
-    <script type="text/javascript" src="js/capsule-coin-abi.js"></script>
-    <script type="text/javascript" src="js/dapp.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Sarpanch:800" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
   </head>
 
   <body>
-    <h1>Capsule Coin!</h1>
 
-    <div>Your balance is: <span id="balance"></span></div>
+    <header>
+      <div class="container">
+        <div class="row">
+          <div class="col"></div>
+          <div class="col-md-6 col-sm-10 mt-4 text-center">
+            <img id="logo" src="img/spreadshirt_com.png" alt="">
+
+            <h2 class="mt-4">Capsule Coin</h2>
+            <h5>to the moon and beyond</h5>
+            <h5>in a time machine</h5>
+          </div>
+          <div class="col"></div>
+        </div>
+      </div>
+    </header>
+
+    <section id="balance-component" class="balance-component">
+      <div class="container">
+        <div class="row">
+          <div class="col"></div>
+            <div class="col-md-6 col-sm-10 text-center mt-4 mb-4">
+
+              <div class="alert hide-display" :class="alertType" role="alert" v-html="message"></div>
+
+              <div class="hide" :class="{ show: balance, 'hide-display': message }">
+                <p>Your have</p>
+                <h1>{{ balance }}</h1>
+                <p>Capsule Coin(s)</p>
+              </div>
+
+            </div>
+          <div class="col"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="explainer-component" class="hide" :class="{ show: description }">
+      <div class="container">
+        <div class="row">
+          <div class="col"></div>
+          <div class="col-md-6  col-sm-8 text-center">
+
+            <div v-on:click="toggle()">
+              <a href="#"> {{ description }}</a>
+            </div>
+            <br>
+            <div class="hide" :class="{show: explainerShow}" id="explainer">
+              <p>We are building a</p>
+              <h3>time capsule</h3>
+              <p><a href="https://github.com/ndkv/capsule-coin#gimme-some-coins-please-"> that will take you to the moon</a></p>
+              <p>before the coins and Musk's rockets do</p>
+              <p>but after they arrive so you won't feel lonely.</p>
+            </div>
+          </div>
+          <div class="col"></div>
+        </div>
+      </div>
+    </section>
+
+    <!--Bootstrap-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+    <!--truffle-contract-->
+    <script type="text/javascript" src="js/vendor/truffle-contract.min.js"></script>
+    <script type="text/javascript" src="js/capsule-coin-abi.js"></script>
+
+   <!--Vue.js-->
+   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <!-- Dah dapp -->
+    <script type="text/javascript" src="js/dapp.js"></script>
   </body>
 
 </html>

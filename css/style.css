@@ -1,0 +1,30 @@
+#logo {
+    height: 100px;
+}
+
+h1, h2, h3 {
+    color: rgb(85, 27, 118);
+    font-family: Sarpanch;
+}
+
+.hide-display {
+    display: none;
+}
+
+.show-display {
+    display: block;
+}
+
+.hide {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.show {
+    transition: opacity 0.5s;
+    opacity: 1;
+}
+
+#explainer > p {
+    margin-bottom: 0.1rem;
+}
