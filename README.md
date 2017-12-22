@@ -55,7 +55,7 @@ This will install the `truffle` CLI and give you access to the following Truffle
 - `compile` - compiles your Solidity contracts in `contract/` and puts them in `build/contracts/`
 - `migrate` - publishes the compiled contract on the Ethereum blockchain
 
-Execute `truffle compile` to compile your contracts in `contracts/`.
+Execute `truffle <command>` to execute one these operations.
 
 ### Writing, compiling and testing contracts
 
@@ -65,13 +65,15 @@ Contracts are written in [Solidity](https://solidity.readthedocs.io/en/develop/)
 - `sendCoin(address receiver, uint amount)` - sends `amount` of coins to `receiver` address.
 - `getBalance(address addr)` - get the balance of `address`.
 
-Truffle comes with two local blockchains: Ganachi and `truffle develop`.  Use these to develop and test your contract locally.
+Before we can publish this contract to the chain we need to `truffle compile` it.
+
+Since pushing to a live chain is a slow process (you need to wait for your contract to be mined) Truffle comes with two local blockchains that skip the mining part or do it much more quickly: Ganachi and `truffle develop`.  Use these to develop and test your contract locally.
 
 ### Publishing to a live network
 
 To publish your contract on one of the public Ethereum networks we need to install and run a *gasp* real Ethereum node and tell Truffle to use it.
 
-#### Install and configure geth
+#### Install and test an Ethereum node
 
 First, let's install and run the node. `geth` seem to be the most popular implementation. You can install it on macOS with `brew`
 
@@ -80,9 +82,15 @@ brew tap ethereum/ethereum
 brew install ethereum
 ```
 
-Executing `geth --rinkeby --datadir=$HOME/.rinkeby --verbosity 2 console` will launch an Ethereum node at `127.0.0.1:8545` connected to the `Rinkeby` test network and drop you in a JavaScript console.
+Executing
+
+    geth --rinkeby --datadir=$HOME/.rinkeby --verbosity 2 console
+
+will launch an Ethereum node on your machine at `127.0.0.1:8545` which is connected to the `Rinkeby` test network and drop you in a JavaScript console.
 
 The console exposes Ethereum's [web3.js JavaScript API](https://github.com/ethereum/web3.js/). web3 is awesome as it allows us to interact with Ethereum blockchains through the browser, see `Interacting with your contracts` section.
+
+#### Create an account
 
 Contracts are published and owned by an Ethereum account. Right now our node doesn't have one: execute `web3.eth.accounts` in the console to verify. You should get an empty list.
 
@@ -111,13 +119,13 @@ Execute  `truffle migrate` to publish a contract to the network. You will need
 where
 
 - `--rpc` enables the Remote Procedure Call interface that Truffle requires
-- `-- unlock` specifies the account which will be used to publish the contract. Replace `<your_ethereum_account` with the account you created earlier.
+- `-- unlock` specifies the account which will be used to publish the contract. Replace `<your_ethereum_account` with the account you created earlier. You will be prompted for your password.
 
 `truffle-example.js` contains the required configuration: rename it to `truffle.js` and execute
 
     truffle migrate rinkeby
 
-Truffle will compile your contract and publish it!
+Truffle will compile your contract and publish it! Furthermore, it will store your contract's address in `build/contracts/` so you don't need to remember it. So. Much. Awesome.
 
 ### Interacting with your contracts
 
@@ -125,7 +133,9 @@ Once a contract is published you can interact with it through the awesome [truff
 
     npm install truffle-contract
 
-`require` it in your Node scripts, feed it your contract's ABI located in `build/contracts/CapsuleCoin.js`, obtain an instance of your published contract and call its functions directly in JS. It's magic/the future/mindblowing! Check out `scripts/CapsuleCoin.js` for the exact workflow.
+`require` it in your Node scripts, feed it your contract's ABI located in `build/contracts/CapsuleCoin.js`, obtain an instance of your published contract and call its functions directly in JS. It's magic/the future/mindblowing!
+
+Check out `scripts/CapsuleCoin.js` for the exact workflow.
 
 ## Bare metal
 
