@@ -16,36 +16,52 @@ Sure thing! Follow along and you will swiftly be the owner of the venerable Caps
 2. create an account
 3. switch to the `Rinkeby` network
 4. send us (@ndkv) your account address and we will swiftly transfer 100 Capsule Coins (CECs).
-5. Go to the [Capsule Coin Ðapp](https://ndkv.github.io/capsule-coin) to verify that you posses sublime Capsule Coins!
-6. (Planned) Share your coins with other friends through the `Transfer` tab in the Capsule Coin Ðapp.
+
+That's it!
+
+## Thanks... I guess. Now what? 🙄
+
+Go to the mega awesome [Capsule Coin Ðapp](https://ndkv.github.io/capsule-coin), unlock your Metamask account and be awed by them coinz! 🤯
+
+Make sure to bookmark our Ðapp because in the future you will be able to
+
+- share your coins with others!
+- see a list of accounts that have Capsule Coins!
+
+Can you collect the most coins?
 
 ## Is this for real, tho? 🤔
 
 Yes, we are extremely passionate about our vision and dedicated to executing it swiftly. Verify for yourself:
 
 - inspect the underlying [Smart Contract](https://github.com/ndkv/capsule-coin/blob/master/contracts/CapsuleCoin.sol) in this repository
-- inspect the deployed contract on the [Ethereum Rinkeby blockchain](https://rinkeby.etherscan.io/address/0x138db7ce2af44c6c3ccb1589dfe223f15a7ef750).
-- inspect the [Node.js script](https://github.com/ndkv/capsule-coin/blob/master/scripts/CapsuleCoin.js) we use to distribute the coins.
+- inspect the deployed contract on the [Ethereum Rinkeby blockchain](https://rinkeby.etherscan.io/address/0x138db7ce2af44c6c3ccb1589dfe223f15a7ef750)
+- inspect the [Node.js script](https://github.com/ndkv/capsule-coin/blob/master/scripts/CapsuleCoin.js) we use to distribute the coins
 - verify that the account holding the Capsule Coins is [actually distributing them](https://rinkeby.etherscan.io/address/0x245f73498be5c1767570d687263c6ef368df62cd#tokentxns).
-- inspect our Ðapp's [source code](https://github.com/ndkv/capsule-coin/tree/gh-pages) over in the `gh-pages` branch.
+- inspect our Ðapp's [source code](https://github.com/ndkv/capsule-coin/tree/gh-pages) over in the `gh-pages` branch
+- read on for detailed (and serious) instructions on how to create your very own coin
 
 See, we mean business!
 
+# I'd like a coin and a Ðapp of my own, please! 🙋
 
-# I'd like to collab! 🙋
+Great, let's get you started. In the following we'll show you how to craft a smart contract, publish it to the Ethereum test network and interact with it with JavaScript.
 
-Great, let's get you started.
+Head over to the [gh-pages branch](https://github.com/ndkv/capsule-coin/tree/gh-pages) to get your hands on our Ðapp's source code. Ðapps are decentralized applications that run in the web browser and can interact with the Ethereum network. Ðapps. Are. The. Future.
 
 ## Basic workflow
 
+To deploy a smart contract on the Ethereum network we need to
+
 1. write a contract in Solidity
 2. compile the contract
-3. publish the contract to the blockchain
-4. interact with your contract instance
+3. publish the contract to the network
+
+Afterwards we can interact with it through e.g. Node.js scripts or a Ðapp.
 
 ## Truffle
 
-Truffle is JavaScript framework for crafting, deploying and interacting with smart contracts. It makes the whole process much more bearable than going at it with Ethereum's stock tooling.
+Truffle is a JavaScript framework for crafting, testing and deploying smart contracts. It makes the whole process much more bearable than going at it with Ethereum's stock tooling.
 
     npm install -g truffle
 
@@ -55,7 +71,7 @@ This will install the `truffle` CLI and give you access to the following Truffle
 - `compile` - compiles your Solidity contracts in `contract/` and puts them in `build/contracts/`
 - `migrate` - publishes the compiled contract on the Ethereum blockchain
 
-Execute `truffle <command>` to execute one these operations.
+Execute `truffle <command>` to execute one of these operations.
 
 ### Writing, compiling and testing contracts
 
@@ -65,9 +81,15 @@ Contracts are written in [Solidity](https://solidity.readthedocs.io/en/develop/)
 - `sendCoin(address receiver, uint amount)` - sends `amount` of coins to `receiver` address.
 - `getBalance(address addr)` - get the balance of `address`.
 
-Before we can publish this contract to the chain we need to `truffle compile` it.
+Before we can publish this contract to the network we need to compile it with
 
-Since pushing to a live chain is a slow process (you need to wait for your contract to be mined) Truffle comes with two local blockchains that skip the mining part or do it much more quickly: Ganachi and `truffle develop`.  Use these to develop and test your contract locally.
+    truffle compile
+
+This generates a `build/contract/CapsuleCoin.json` file that contains your compiled contract, its Application Binary Interface (ABI) and some other metadata.
+
+The ABI describes the interface of your contract. Take note of its existence and location as you will need it when you want to interact with your contract.
+
+Pushing to a live chain is a slow process (you need to wait for your contract to be mined). Luckily, Truffle comes with two local blockchains you can use to develop and test your contract more effectively: Ganachi and `truffle develop`.
 
 ### Publishing to a live network
 
@@ -75,7 +97,7 @@ To publish your contract on one of the public Ethereum networks we need to insta
 
 #### Install and test an Ethereum node
 
-First, let's install and run the node. `geth` seem to be the most popular implementation. You can install it on macOS with `brew`
+First, let's install and run the node. `geth` seems to be the most popular implementation. You can install it on macOS with `brew`
 
 ```bash
 brew tap ethereum/ethereum
@@ -88,7 +110,7 @@ Executing
 
 will launch an Ethereum node on your machine at `127.0.0.1:8545` which is connected to the `Rinkeby` test network and drop you in a JavaScript console.
 
-The console exposes Ethereum's [web3.js JavaScript API](https://github.com/ethereum/web3.js/). web3 is awesome as it allows us to interact with Ethereum blockchains through the browser, see `Interacting with your contracts` section.
+The console exposes Ethereum's [web3.js JavaScript API](https://github.com/ethereum/web3.js/). web3 is awesome as it allows us to interact with the network using JavaScript (yes, also in the browser!), see `Interacting with your contracts` section.
 
 #### Create an account
 
@@ -102,15 +124,15 @@ to create a new account. Remember the password and note the address; you will ne
 
 #### Get some fake Ether
 
-[Publishing and interacting with contracts costs Ether](http://truffleframework.com/docs/getting_started/contracts). We can get some for the test newtork for free from the [Rinkeby Faucet](https://faucet.rinkeby.io/).
+[Publishing and interacting with contracts costs Ether](http://truffleframework.com/docs/getting_started/contracts). We can get some for the test network for free from the [Rinkeby Faucet](https://faucet.rinkeby.io/). Send them to your newly made account.
 
 #### Publish your contract with Truffle `migrate`
 
-Execute  `truffle migrate` to publish a contract to the network. You will need
+Execute `truffle migrate` to publish a contract to the network. You will need
 
 1. a running node that allows RPC connections
 2. an unlocked account on that node
-3. the correct Truffle configuration.
+3. the correct Truffle configuration
 
 1 and 2 are solved by running our Ethereum node with the following parameters
 
@@ -118,8 +140,8 @@ Execute  `truffle migrate` to publish a contract to the network. You will need
 
 where
 
-- `--rpc` enables the Remote Procedure Call interface that Truffle requires
-- `-- unlock` specifies the account which will be used to publish the contract. Replace `<your_ethereum_account` with the account you created earlier. You will be prompted for your password.
+- `--rpc` enables the Remote Procedure Call interface that Truffle uses to interact with the network
+- `-- unlock` specifies the account that will be used to publish the contract. Replace `<your_ethereum_account` with the account you created earlier. You will be prompted for your password.
 
 `truffle-example.js` contains the required configuration: rename it to `truffle.js` and execute
 
@@ -181,7 +203,7 @@ var test = testContract.new({ from: eth.accounts[1], data: "0x" + testOutput.con
 });
 ```
 
-Take note of the contract's address. You can put this in a JavaScript file and `require` it but Truffle is much nicer. Use it.
+Take note of the contract's address. You can put the above in a JavaScript file and `require` it in the `geth` console but Truffle is much more elegant. Use it. And call it awesome all the time.
 
 # Resources
 
